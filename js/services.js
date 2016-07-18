@@ -3,19 +3,20 @@ app.service('cartService', ['teaService', function(teaService){
   this.cart = {};
   this.cart.items = [];//sku, qty
 
+  this.getCartProducts = function(){
+    var _self = this;
+    return this.cart.items.map(function(item, idx){
+      var product = teaService.teaById(item.sku);
+      product.qty = Number(item.qty);
+      product.sku = item.sku;
+      return product;
+    });
+  };
+
   this.getCartItem = function(id){
     return this.cart.items.find(function(itm){
       return itm.sku === id;
     });
-  };
-
-  this.getCartItemProductInfo = function(id){
-    return teaService.teaById(id);
-  };
-
-  this.getCartItemSubtotal = function(id){
-    return  (this.getCartItem(id).qty) *
-            (this.getCartItemProductInfo.price * .01);
   };
 
   this.getCartItemIndex = function(id){
@@ -33,9 +34,10 @@ app.service('cartService', ['teaService', function(teaService){
 
   this.updateCartItem = function(id, qty){
     var existing = this.getCartItem(id);
+    qty = Number(qty);
 
     if(existing){
-      existing.qty += qty;
+      existing.qty = qty;
       // limit to ten
       if(existing.qty > 10){
         existing.qty = 10;
@@ -56,12 +58,12 @@ app.service('cartService', ['teaService', function(teaService){
 
   this.qtyItems = function(){
     return this.cart.items.reduce(function(total, item) {
-      return total + item.qty;
+      return total + Number(item.qty);
     }, 0);
   };
 
   this.ordertotal = function(){
-    this.cart.items.reduce(function(total, item) {
+    return this.cart.items.reduce(function(total, item) {
       var tea = teaService.teaById(item.sku);
       return total + (Number(tea.price) * .01);
     }, 0);

@@ -5831,6 +5831,9 @@ header {
   display: inline-block;
   width: 120px; }
 
+.command-cell {
+  white-space: nowrap; }
+
 .product-table .top-row {
   display: flex;
   /*force row elements to same height*/ }

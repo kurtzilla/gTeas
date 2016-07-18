@@ -1,5 +1,5 @@
 
-<wct-listing-function-header></wct-listing-function-header>
+<wct-listing-header></wct-listing-header>
 
 <section class="product-listing">
   <table class="table product-table table-bordered table-condensed">
@@ -24,8 +24,7 @@
     </thead>
 
     <tbody>
-      <tr tea="tea"
-          ng-repeat="tea in teaService.store | filter: filterByCategory | filter: filterByName | orderBy:'price': viewSettings.priceSortDirection">
+      <tr ng-repeat="tea in teaService.store | filter: filterByCategory | filter: filterByName | orderBy:'price': viewSettings.priceSortDirection">
         <td class="img-cell">
           <img ng-src="{{tea.imageUrl}}"
               alt="{{tea.name}}" />

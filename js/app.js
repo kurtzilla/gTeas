@@ -13,7 +13,7 @@ app.config(function($routeProvider, $locationProvider){
     })
     .when('/checkout', {
       templateUrl: 'partials/checkout.html',
-      // controller: 'CheckoutController'
+      controller: 'CheckoutController'
     })
     .otherwise( {
       templateUrl: 'partials/home.html',

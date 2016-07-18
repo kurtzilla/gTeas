@@ -1,8 +1,22 @@
 
-app.directive('wctListingFunctionHeader', function(){
+app.directive('wctCheckoutHeader', function(){
   return {
     restrict: 'E',
-    templateUrl: 'partials/listingFunctionHeader.html',
+    templateUrl: 'partials/checkoutHeader.html',
+    scope: {
+    },
+    controller: ['$scope', 'cartService',
+      function($scope, cartService){
+        $scope.view = {};
+        $scope.cartService = cartService;
+    }]
+  }
+});
+
+app.directive('wctListingHeader', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'partials/listingHeader.html',
     scope: {
     },
     controller: ['$scope', 'teaService', 'contextService', 'cartService', '$location',

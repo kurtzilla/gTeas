@@ -1,1 +1,57 @@
-<h1>Checkout C</h1>
+
+<wct-checkout-header></wct-checkout-header>
+
+<section class="product-listing">
+  <table class="table product-table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>
+          Product
+        </th>
+        <th>
+          Quantity
+        </th>
+        <th>
+          Sub-total
+        </th>
+        <th>
+          &nbsp;
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr  ng-repeat="product in cartService.getCartProducts() track by $index">
+        <td class="info-cell">
+          <h3>{{product.name}}</h3>
+          <div><img ng-src="{{product.imageUrl}}" alt="{{product.name}}" /></div>
+          <div><strong>Caffeine Scale: </strong>{{product.caffeineScale}}</div>
+          <div><strong>Ingredients: </strong>{{product.ingredients}}</div>
+          <div><strong>Rating: </strong>{{product.rating}}</div>
+        </td>
+        <td>
+          <div ng-show="view.editIdx !== $index">
+            {{product.qty}}
+          </div>
+          <div ng-show="view.editIdx === $index">
+            <input type="number" name="qty" ng-model="view.qty" />
+          </div>
+        </td>
+        <td>
+          {{((product.price * .01) * (view.qty || 1)) | currency}}
+        </td>
+        <td class="command-cell text-right">
+          <button class="btn btn-warning"
+                  ng-show="view.editIdx !== $index"
+                  ng-click="toggleEdit($index)">Edit</button>
+          <button class="btn btn-warning"
+                  ng-show="view.editIdx === $index"
+                  ng-click="updateQuantity(product.sku)">Save</button>
+
+          <button class="btn btn-danger" ng-click="removeItem(product.sku)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button ng-click="processOrder()">Process Order!</button>
+</section>

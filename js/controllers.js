@@ -1,29 +1,18 @@
 
-
 app.controller('HomeController', function($scope, teaService, contextService, cartService){
   $scope.view = {};
   $scope.teaService = teaService;
   $scope.viewSettings = contextService.viewSettings;
 
   $scope.updateCart = function(teaId, form){
-
-    // TODO if qty is unknown - set to 1
-
     if(form && form.$valid){
-
-      //get id!
-      // console.log('FORM',teaId, form.input.qty);
       cartService.updateCartItem(teaId, form.input.qty || 1)
-
-      // console.log('NEW CART', cartService.cart.items);
       form.input = {};
       form.$setPristine();
     }
   };
 
   $scope.filterByCategory = function (item) {
-    // console.log('ITEM', item);
-    // console.log('FILTER', $scope.viewSettings.categoryFilter);
     if(!$scope.viewSettings.categoryFilter || $scope.viewSettings.categoryFilter.trim().length === 0){
       return true;
     }
@@ -47,6 +36,36 @@ app.controller('ContactController', function($scope){
 
 });
 
-app.controller('CheckoutController', function($scope){
+app.controller('CheckoutController', function($scope, cartService){
+  $scope.view = {};
+  $scope.view.editIdx = -1;
+  $scope.cartService = cartService;
+
+  $scope.updateQuantity = function(id){
+    if($scope.view.qty && $scope.view.qty > 0){
+      cartService.updateCartItem(id, $scope.view.qty || 1);
+    }
+
+    $scope.view.editIdx = -1;
+    $scope.view.qty = null;
+  };
+
+  $scope.toggleEdit = function(idx){
+    if($scope.view.editIdx === idx){
+      $scope.view.editIdx = -1;
+    } else {
+      $scope.view.editIdx = idx;
+    }
+  };
+
+  $scope.removeItem = function(id){
+    $scope.view.editIdx = -1;
+    cartService.deleteItem(id);
+  };
+
+  $scope.processOrder = function(){
+    $scope.view.editIdx = -1;
+    cartService.cart.items = [];
+  };
 
 });

@@ -32,6 +32,10 @@ header {
   }
 }
 
+.command-cell {
+  white-space: nowrap;
+}
+
 .product-table {
   .top-row {
     display:flex;/*force row elements to same height*/
