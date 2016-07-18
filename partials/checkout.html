@@ -24,8 +24,15 @@
       <tr  ng-repeat="product in cartService.getCartProducts() track by $index">
         <td class="info-cell">
           <h3>{{product.name}}</h3>
-          <div><img ng-src="{{product.imageUrl}}" alt="{{product.name}}" /></div>
-          <div><strong>Caffeine Scale: </strong>{{product.caffeineScale}}</div>
+          <div class="pull-left">
+            <img ng-src="{{product.imageUrl}}" alt="{{product.name}}" />
+          </div>
+          <div class="caffeine-section">
+            <h4>Caffeine</h4>
+            mg/serving: {{product.caffeineScale}}
+            <caffeine-meter caffeinemg="product.caffeineScale" id="product._id"></caffeine-meter>
+          </div>
+          <div class="clearfix"></div>
           <div><strong>Ingredients: </strong>{{product.ingredients}}</div>
           <div><strong>Rating: </strong>{{product.rating}}</div>
         </td>

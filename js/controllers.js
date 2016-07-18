@@ -45,7 +45,6 @@ app.controller('CheckoutController', function($scope, cartService){
     if($scope.view.qty && $scope.view.qty > 0){
       cartService.updateCartItem(id, $scope.view.qty || 1);
     }
-
     $scope.view.editIdx = -1;
     $scope.view.qty = null;
   };
