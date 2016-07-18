@@ -1,4 +1,23 @@
 
+app.directive('caffeineMeter', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'partials/caffeineMeter.html',
+    controller: ['$scope', function($scope){
+      // TODO determine guage of scale
+      // let's say that 300 is the highest
+      var cafPct = ($scope.tea.caffeineScale/300).toFixed(2);
+      var cafLvl = cafPct * 180;
+      console.log('CAF', $scope.tea.caffeineScale, cafPct, cafLvl);
+
+      $scope.caf = {};
+      $scope.caf.style = '-webkit-transform: rotate(' + cafLvl + 'deg);' +
+        '-moz-transform: rotate(' + cafLvl + 'deg);' +
+        'transform: rotate(' + cafLvl + 'deg);'
+    }]
+  }
+});
+
 app.directive('wctCheckoutHeader', function(){
   return {
     restrict: 'E',

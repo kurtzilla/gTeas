@@ -51,7 +51,13 @@
           <div class="row info-row">
             <div class="col-xs-12">
               <div><strong>Price: </strong>{{tea.price | addDecimalAndCurrency }}</div>
-              <div><strong>Caffeine Scale: </strong>{{tea.caffeineScale}}</div>
+
+              <div class="caffeine-section">
+                <h4>Caffeine</h4>
+                mg/serving: {{tea.caffeineScale}}
+                <caffeine-meter caffeinemg="{{tea.caffeineScale}}" id="tea._id"></caffeine-meter>
+              </div>
+
               <div><strong>Ingredients: </strong>{{tea.ingredients}}</div>
               <div><strong>Rating: </strong>{{tea.rating}}</div>
               <div><strong>In Stock? </strong>{{tea.inStock | booleanToYesNo }}</div>
