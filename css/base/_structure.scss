@@ -24,6 +24,14 @@ header {
   }
 }
 
+.listing-function{
+  input.form-control {
+    // border-color: red !important;
+    display:inline-block;
+    width:200px;
+  }
+}
+
 .product-table {
   .top-row {
     display:flex;/*force row elements to same height*/

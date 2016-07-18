@@ -36,12 +36,17 @@
               <span>{{tea.name}}</span>
             </div>
             <div class="col-xs-6 text-right qty">
-              <span>Quantity: </span>
-
-              <select ng-model="selectedQty" ng-options="option for option in [1,2,3,4,5,6,7,8,9,10]">
-              </select>
-
-              <button class="btn btn-sm btn-warning">Add To Bag</button>
+              <form name="teaForm"
+                    ng-submit="updateCart(tea._id, teaForm);">
+                <span>Quantity: </span>
+                <select name="qty"
+                        ng-init="teaForm.input.qty=''"
+                        ng-model="teaForm.input.qty"
+                        ng-options="option for option in [1,2,3,4,5,6,7,8,9,10]">
+                  <option value=""></option>
+                </select>
+                <button class="btn btn-sm btn-warning">Add To Bag</button>
+              </form>
             </div>
           </div>
           <div class="row info-row">

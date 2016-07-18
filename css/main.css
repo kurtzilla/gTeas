@@ -5827,6 +5827,10 @@ header {
   header ul.navbar-nav li {
     margin-left: .75em; }
 
+.listing-function input.form-control {
+  display: inline-block;
+  width: 200px; }
+
 .product-table .top-row {
   display: flex;
   /*force row elements to same height*/ }

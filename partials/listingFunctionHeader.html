@@ -1,4 +1,4 @@
-<section class="row">
+<section class="row listing-function">
   <div class="col-xs-9">
     Search by category:
     <select ng-init="viewSettings.categoryFilter=''"
@@ -6,7 +6,6 @@
             ng-options="option for option in teaService.getCategories()">
       <option value=""></option>
     </select>
-
     Search by name:
     <input type="text"
           name="search"
@@ -14,6 +13,9 @@
           ng-model="viewSettings.nameFilter" />
   </div>
   <div class="col-xs-3 text-right">
-    <button class="btn btn-danger">checkout</button>
+    <button class="btn btn-danger"
+            ng-click="gotoCheckout();">
+      <strong>Checkout</strong> | Bag: {{cartService.status()}}
+    </button>
   </div>
 </section>

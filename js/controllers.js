@@ -1,9 +1,22 @@
 
 
-app.controller('HomeController', function($scope, teaService, contextService){
+app.controller('HomeController', function($scope, teaService, contextService, cartService){
   $scope.view = {};
   $scope.teaService = teaService;
   $scope.viewSettings = contextService.viewSettings;
+
+  $scope.updateCart = function(teaId, form){
+    if(form && form.$valid){
+
+      //get id!
+      // console.log('FORM',teaId, form);
+      cartService.updateCartItem(teaId, form.input.qty)
+
+      // console.log('NEW CART', cartService.cart.items);
+      form.input = {};
+      form.$setPristine();
+    }
+  };
 
   $scope.filterByCategory = function (item) {
     // console.log('ITEM', item);

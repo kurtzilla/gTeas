@@ -1,5 +1,5 @@
 
-app.service('cartService', ['dataService', function(dataService){
+app.service('cartService', ['teaService', function(teaService){
   this.cart = {};
   this.cart.items = [];//sku, qty
 
@@ -15,7 +15,14 @@ app.service('cartService', ['dataService', function(dataService){
     });
   };
 
-  this.addItem = function(id, qty){
+  this.deleteItem = function(id){
+    var existing = this.getItemIndex(id);
+    if(existing !== -1){
+      this.cart.items.splice(existing, 1);
+    }
+  };
+
+  this.updateCartItem = function(id, qty){
     var existing = this.getItem(id);
 
     if(existing){
@@ -29,23 +36,9 @@ app.service('cartService', ['dataService', function(dataService){
     }
   };
 
-  this.deleteItem = function(id){
-    var existing = this.getItemIndex(id);
-    if(existing !== -1){
-      this.cart.items.splice(existing, 1);
-    }
-  };
-
-  this.updateItem = function(id, qty){
-    var existing = this.getItem(id);
-
-    if(existing){
-      existing.qty += qty;
-      // limit to ten
-      if(existing.qty > 10){
-        existing.qty = 10;
-      }
-    }
+  this.status = function(){
+    var num = this.numItems();
+    return (num > 0) ? num.toString() + ' items' : 'Empty!';
   };
 
   this.numItems = function(){
@@ -60,7 +53,7 @@ app.service('cartService', ['dataService', function(dataService){
 
   this.subtotal = function(){
     this.cart.items.reduce(function(total, item) {
-      var tea = dataService.teaById(item.sku);
+      var tea = teaService.teaById(item.sku);
       return total + (Number(tea.price) * .01);
     }, 0);
   }

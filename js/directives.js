@@ -1,17 +1,20 @@
 
-
 app.directive('wctListingFunctionHeader', function(){
   return {
     restrict: 'E',
     templateUrl: 'partials/listingFunctionHeader.html',
     scope: {
     },
-    controller: ['$scope', 'teaService', 'contextService', 'cartService',
-    function($scope, teaService, contextService, cartService){
-      $scope.view = {};
-      $scope.viewSettings = contextService.viewSettings;
-      $scope.teaService = teaService;
-      $scope.cartService = cartService;
+    controller: ['$scope', 'teaService', 'contextService', 'cartService', '$location',
+      function($scope, teaService, contextService, cartService, $location){
+        $scope.view = {};
+        $scope.viewSettings = contextService.viewSettings;
+        $scope.teaService = teaService;
+        $scope.cartService = cartService;
+
+        $scope.gotoCheckout = function(){
+          $location.path('/checkout');
+        };
     }]
   }
 });
