@@ -1,15 +1,35 @@
 
+
+app.directive('wctListingFunctionHeader', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'partials/listingFunctionHeader.html',
+    scope: {
+    },
+    controller: ['$scope', 'teaService', 'contextService', 'cartService',
+    function($scope, teaService, contextService, cartService){
+      $scope.view = {};
+      $scope.viewSettings = contextService.viewSettings;
+      $scope.teaService = teaService;
+      $scope.cartService = cartService;
+    }]
+  }
+});
+
+
 app.directive('wctStoreHeader', function(){
   return {
     restrict: 'E',
     templateUrl: 'partials/header.html',
     scope: {
     },
-    controller: ['$scope', '$location', function($scope, $location){
+    controller: ['$scope', '$location', 'contextService', function($scope, $location, contextService){
       // console.log('Scope', $scope);
       // console.log('loc path', $location.path());
-      
+
       $scope.view = {};
+      $scope.viewSettings = contextService.viewSettings;
+
       $scope.view.isHome = function(){
         return ($location.path().trim().length === 0 ||
           $location.path().trim() === '/' ||
@@ -23,4 +43,27 @@ app.directive('wctStoreHeader', function(){
       };
     }]
   }
-})
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

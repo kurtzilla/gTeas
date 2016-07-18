@@ -1,7 +1,5 @@
 
-<section>
-  search by name/search by category/checkout
-</section>
+<wct-listing-function-header></wct-listing-function-header>
 
 <section class="product-listing">
   <table class="table product-table table-bordered">
@@ -15,16 +13,22 @@
         </th>
         <th class="text-right">
           <form>
-            Sort By Price<select></select> - checkout|empty
+            Sort By Price:
+            <select ng-init="viewSettings.priceSortDirection=false"
+                    ng-model="viewSettings.priceSortDirection"
+                    ng-options="option.value as option.name for option in [{'name':'lo to hi', 'value': false},{'name':'hi to lo', 'value': true}]">
+            </select>
           </form>
         </th>
       </tr>
     </thead>
     <tbody>
 
-      <tr tea="tea" ng-repeat="tea in teaService.store">
+      <tr tea="tea"
+          ng-repeat="tea in teaService.store | filter: filterByCategory | filter: filterByName | orderBy:'price': viewSettings.priceSortDirection">
         <td class="img-cell">
-          <img ng-src="{{tea.imageUrl}}" alt="{{tea.name}}" />
+          <img ng-src="{{tea.imageUrl}}"
+              alt="{{tea.name}}" />
         </td>
         <td colspan="2">
           <div class="row top-row">

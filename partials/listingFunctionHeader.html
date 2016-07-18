@@ -1,0 +1,19 @@
+<section class="row">
+  <div class="col-xs-9">
+    Search by category:
+    <select ng-init="viewSettings.categoryFilter=''"
+            ng-model="viewSettings.categoryFilter"
+            ng-options="option for option in teaService.getCategories()">
+      <option value=""></option>
+    </select>
+
+    Search by name:
+    <input type="text"
+          name="search"
+          class="form-control"
+          ng-model="viewSettings.nameFilter" />
+  </div>
+  <div class="col-xs-3 text-right">
+    <button class="btn btn-danger">checkout</button>
+  </div>
+</section>

@@ -1,15 +1,104 @@
+
+app.service('cartService', ['dataService', function(dataService){
+  this.cart = {};
+  this.cart.items = [];//sku, qty
+
+  this.getItem = function(id){
+    return this.cart.items.find(function(itm){
+      return itm.sku === id;
+    });
+  };
+
+  this.getItemIndex = function(id){
+    return this.cart.items.findIndex(function(itm){
+      return itm.sku === id;
+    });
+  };
+
+  this.addItem = function(id, qty){
+    var existing = this.getItem(id);
+
+    if(existing){
+      existing.qty += qty;
+      // limit to ten
+      if(existing.qty > 10){
+        existing.qty = 10;
+      }
+    } else {
+      this.cart.items.push({'sku':id, 'qty': qty});
+    }
+  };
+
+  this.deleteItem = function(id){
+    var existing = this.getItemIndex(id);
+    if(existing !== -1){
+      this.cart.items.splice(existing, 1);
+    }
+  };
+
+  this.updateItem = function(id, qty){
+    var existing = this.getItem(id);
+
+    if(existing){
+      existing.qty += qty;
+      // limit to ten
+      if(existing.qty > 10){
+        existing.qty = 10;
+      }
+    }
+  };
+
+  this.numItems = function(){
+    return this.cart.items.length;
+  };
+
+  this.qtyItems = function(){
+    return this.cart.items.reduce(function(total, item) {
+      return total + item.qty;
+    }, 0);
+  };
+
+  this.subtotal = function(){
+    this.cart.items.reduce(function(total, item) {
+      var tea = dataService.teaById(item.sku);
+      return total + (Number(tea.price) * .01);
+    }, 0);
+  }
+}]);
+
+app.service('contextService', function(){
+  this.viewSettings = {};
+  this.viewSettings.nameFilter = '';
+  this.viewSettings.categoryFilter = '';
+  this.viewSettings.priceSortDirection = 'false';
+});
+
 app.service('teaService', function(){
 
-  this.getMaxStoreId == function(){
+  this.getCategories = function(){
+    var coll = [];
+
+    this.store.forEach(function(itm){
+      itm.categories.forEach(function(ele){
+        if(coll.indexOf(ele) === -1){
+          coll.push(ele);
+        }
+      });
+    });
+
+    return coll.sort();
+  };
+
+  this.getMaxStoreId = function(){
     var maxCallback = ( max, cur ) => Math.max( max, cur );
     return this.store.map( el => el._id )
-                          .reduce( maxCallback , 0 );
+                     .reduce( maxCallback , 0 );
   };
 
   this.teaCreate = function(_name, _ingredients, _caffeineScale, _price,
     _inStock, _rating, _imageUrl, _categoriesArr){
 
-    var _id = (parseInt(hexValue , 16) +0x1).toString (16);
+    var _id = (parseInt(getMaxStoreId(), 16) +0x1).toString (16);
     var _v = 0;
 
     this.store.push({
@@ -32,6 +121,11 @@ app.service('teaService', function(){
       return itm._id === id;
     });
   };
+  this.teaIndexById = function(id){
+    return this.store.findIndex(function(itm){
+      return itm._id === id;
+    });
+  };
   // update?
   this.teaUpdate= function(id, _name, _ingredients, _caffeineScale, _price,
                           _inStock, _rating, _imageUrl, _v, _categoriesArr){
@@ -48,6 +142,7 @@ app.service('teaService', function(){
       tea.categories = _categoriesArr
     }
   };
+
   this.teaDelete = function(ordinal_id){
     this.store.splice(ordinal_id,1);
   };
