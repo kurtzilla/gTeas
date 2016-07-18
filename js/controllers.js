@@ -1,7 +1,8 @@
 
 
-app.controller('HomeController', function($scope){
-
+app.controller('HomeController', function($scope, teaService){
+  $scope.view = {};
+  $scope.teaService = teaService;
 });
 app.controller('AboutController', function($scope){
 

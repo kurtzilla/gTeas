@@ -1,6 +1,6 @@
 
-
 header {
+  margin-bottom: 3em;
   .tagline {
     background-color: $brand-main;
   }
@@ -21,5 +21,33 @@ header {
     li {
       margin-left:.75em;
     }
+  }
+}
+
+.product-table {
+  .top-row {
+    display:flex;/*force row elements to same height*/
+    .qty {
+      white-space: nowrap;
+      min-width:240px;
+      max-width:250px;
+    }
+    span {
+      display: inline-block;
+      font-weight:bold;
+      font-size:1.6em;
+    }
+    select {
+      // TODO not sure how to align - but wait for further styling
+      // position:relative;
+      // margin-top:-50px;
+    }
+    .btn {
+      margin-top:-5px;/*need this to align the btn properly*/
+    }
+  }
+  .img-cell {
+    // border:solid red 1px;
+    width:25%;
   }
 }

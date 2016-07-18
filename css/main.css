@@ -5809,21 +5809,40 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
-header .tagline {
-  background-color: #ff7f50; }
-header .branding-container {
-  font-size: 1.4em;
-  line-height: 1em;
-  font-weight: bold;
-  color: white;
-  text-align: center; }
-header H1.brand-name {
-  font-size: 3.3em;
-  font-weight: bold;
-  font-style: italic;
-  color: #ff7f50; }
-header ul.navbar-nav li {
-  margin-left: .75em; }
+header {
+  margin-bottom: 3em; }
+  header .tagline {
+    background-color: #ff7f50; }
+  header .branding-container {
+    font-size: 1.4em;
+    line-height: 1em;
+    font-weight: bold;
+    color: white;
+    text-align: center; }
+  header H1.brand-name {
+    font-size: 3.3em;
+    font-weight: bold;
+    font-style: italic;
+    color: #ff7f50; }
+  header ul.navbar-nav li {
+    margin-left: .75em; }
+
+.product-table .top-row {
+  display: flex;
+  /*force row elements to same height*/ }
+  .product-table .top-row .qty {
+    white-space: nowrap;
+    min-width: 240px;
+    max-width: 250px; }
+  .product-table .top-row span {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.6em; }
+  .product-table .top-row .btn {
+    margin-top: -5px;
+    /*need this to align the btn properly*/ }
+.product-table .img-cell {
+  width: 25%; }
 
 /*
 header {

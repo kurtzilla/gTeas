@@ -17,7 +17,7 @@ app.config(function($routeProvider, $locationProvider){
     })
     .otherwise( {
       templateUrl: 'partials/home.html',
-      // controller: 'HomeController'
+      controller: 'HomeController'
     });
 
     // use the HTML5 History API

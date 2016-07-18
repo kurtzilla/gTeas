@@ -1,1 +1,62 @@
-<h1>Home C</h1>
+
+<section>
+  search by name/search by category/checkout
+</section>
+
+<section class="product-listing">
+  <table class="table product-table table-bordered">
+    <thead>
+      <tr>
+        <th>
+          Tea
+        </th>
+        <th>
+          Information
+        </th>
+        <th class="text-right">
+          <form>
+            Sort By Price<select></select> - checkout|empty
+          </form>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr tea="tea" ng-repeat="tea in teaService.store">
+        <td class="img-cell">
+          <img ng-src="{{tea.imageUrl}}" alt="{{tea.name}}" />
+        </td>
+        <td colspan="2">
+          <div class="row top-row">
+            <div class="col-xs-6">
+              <span>{{tea.name}}</span>
+            </div>
+            <div class="col-xs-6 text-right qty">
+              <span>Quantity: </span>
+
+              <select ng-model="selectedQty" ng-options="option for option in [1,2,3,4,5,6,7,8,9,10]">
+              </select>
+
+              <button class="btn btn-sm btn-warning">Add To Bag</button>
+            </div>
+          </div>
+          <div class="row info-row">
+            <div class="col-xs-12">
+              <div><strong>Price: </strong>{{tea.price | addDecimalAndCurrency }}</div>
+              <div><strong>Caffeine Scale: </strong>{{tea.caffeineScale}}</div>
+              <div><strong>Ingredients: </strong>{{tea.ingredients}}</div>
+              <div><strong>Rating: </strong>{{tea.rating}}</div>
+              <div><strong>In Stock? </strong>{{tea.inStock | booleanToYesNo }}</div>
+              <div>
+                <strong>Categories: </strong>
+                <ul>
+                  <li ng-repeat="cat in tea.categories">{{cat}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
