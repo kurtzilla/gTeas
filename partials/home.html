@@ -2,7 +2,7 @@
 <wct-listing-function-header></wct-listing-function-header>
 
 <section class="product-listing">
-  <table class="table product-table table-bordered">
+  <table class="table product-table table-bordered table-condensed">
     <thead>
       <tr>
         <th>
@@ -22,8 +22,8 @@
         </th>
       </tr>
     </thead>
-    <tbody>
 
+    <tbody>
       <tr tea="tea"
           ng-repeat="tea in teaService.store | filter: filterByCategory | filter: filterByName | orderBy:'price': viewSettings.priceSortDirection">
         <td class="img-cell">
@@ -40,10 +40,10 @@
                     ng-submit="updateCart(tea._id, teaForm);">
                 <span>Quantity: </span>
                 <select name="qty"
-                        ng-init="teaForm.input.qty=''"
+                        ng-init="teaForm.input.qty='1'"
                         ng-model="teaForm.input.qty"
-                        ng-options="option for option in [1,2,3,4,5,6,7,8,9,10]">
-                  <option value=""></option>
+                        ng-options="option for option in [2,3,4,5,6,7,8,9,10]">
+                  <option value="1"></option>
                 </select>
                 <button class="btn btn-sm btn-warning">Add To Bag</button>
               </form>

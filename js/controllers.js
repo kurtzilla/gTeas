@@ -6,11 +6,14 @@ app.controller('HomeController', function($scope, teaService, contextService, ca
   $scope.viewSettings = contextService.viewSettings;
 
   $scope.updateCart = function(teaId, form){
+
+    // TODO if qty is unknown - set to 1
+
     if(form && form.$valid){
 
       //get id!
-      // console.log('FORM',teaId, form);
-      cartService.updateCartItem(teaId, form.input.qty)
+      // console.log('FORM',teaId, form.input.qty);
+      cartService.updateCartItem(teaId, form.input.qty || 1)
 
       // console.log('NEW CART', cartService.cart.items);
       form.input = {};

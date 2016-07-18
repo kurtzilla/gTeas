@@ -3,27 +3,36 @@ app.service('cartService', ['teaService', function(teaService){
   this.cart = {};
   this.cart.items = [];//sku, qty
 
-  this.getItem = function(id){
+  this.getCartItem = function(id){
     return this.cart.items.find(function(itm){
       return itm.sku === id;
     });
   };
 
-  this.getItemIndex = function(id){
+  this.getCartItemProductInfo = function(id){
+    return teaService.teaById(id);
+  };
+
+  this.getCartItemSubtotal = function(id){
+    return  (this.getCartItem(id).qty) *
+            (this.getCartItemProductInfo.price * .01);
+  };
+
+  this.getCartItemIndex = function(id){
     return this.cart.items.findIndex(function(itm){
       return itm.sku === id;
     });
   };
 
   this.deleteItem = function(id){
-    var existing = this.getItemIndex(id);
+    var existing = this.getCartItemIndex(id);
     if(existing !== -1){
       this.cart.items.splice(existing, 1);
     }
   };
 
   this.updateCartItem = function(id, qty){
-    var existing = this.getItem(id);
+    var existing = this.getCartItem(id);
 
     if(existing){
       existing.qty += qty;
@@ -32,13 +41,13 @@ app.service('cartService', ['teaService', function(teaService){
         existing.qty = 10;
       }
     } else {
-      this.cart.items.push({'sku':id, 'qty': qty});
+      this.cart.items.push({'sku':id, 'qty': qty || 1});
     }
   };
 
   this.status = function(){
     var num = this.numItems();
-    return (num > 0) ? num.toString() + ' items' : 'Empty!';
+    return (num > 0) ? '(' + num.toString() + ')' : 'Empty!';
   };
 
   this.numItems = function(){
@@ -51,7 +60,7 @@ app.service('cartService', ['teaService', function(teaService){
     }, 0);
   };
 
-  this.subtotal = function(){
+  this.ordertotal = function(){
     this.cart.items.reduce(function(total, item) {
       var tea = teaService.teaById(item.sku);
       return total + (Number(tea.price) * .01);
@@ -65,6 +74,7 @@ app.service('contextService', function(){
   this.viewSettings.categoryFilter = '';
   this.viewSettings.priceSortDirection = 'false';
 });
+
 
 app.service('teaService', function(){
 
@@ -109,17 +119,19 @@ app.service('teaService', function(){
 
     return _id;
   };
+
   this.teaById = function(id){
     return this.store.find(function(itm){
       return itm._id === id;
     });
   };
+
   this.teaIndexById = function(id){
     return this.store.findIndex(function(itm){
       return itm._id === id;
     });
   };
-  // update?
+
   this.teaUpdate= function(id, _name, _ingredients, _caffeineScale, _price,
                           _inStock, _rating, _imageUrl, _v, _categoriesArr){
     var tea = this.teaById(id);
